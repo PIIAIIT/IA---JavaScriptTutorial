@@ -28,6 +28,16 @@ const person = new Salesman('John', social);
 
 console.log(person.calculateBonus());
 
+const Personen = [];
+for (let i = 0; i < 1000; i++) {
+    const rand = Math.floor(Math.random() * 10);
+    const rand2 =Math.floor(Math.random() * 10);
+    const rand3 =Math.floor(Math.random() * 10);
+    const social = new SocialPerformance([rand, rand], [rand, 10-rand], [rand2, rand2], [rand2, 10-rand2],[rand3, rand3], [10-rand3, rand3]);
+    const person = new Salesman('Person ' + i, social);
+    Personen.push(person);
+}
+
 
 
 
@@ -37,24 +47,24 @@ console.log(person.calculateBonus());
 // npm install rxjs
 const { Subject } = require('rxjs');
 
-const subject = new Subject();
+const performanceSubject = new Subject();
+const batchSubject = new Subject();
 
-const observerA = subject.subscribe(value =>
-    console.log(`Observer A: ${value}`)
-);
+performanceSubject.subscribe(salesman => {
+    const bonus = salesman.calculateBonus();
+    console.log(`${salesman.name} has a bonus of ${bonus.toFixed(2)}`);
+});
 
-const observerB = subject.subscribe(value =>
-    console.log(`Observer B: ${value}`)
-);
+batchSubject.subscribe(personenListe => {
+    personenListe.forEach(p => {
+        const bonus = p.calculateBonus();
+        console.log(`${p.name} has a bonus of ${bonus.toFixed(2)}`);
+    });
+});
 
-subject.next('Hello');
-subject.next('World');
-
-observerB.unsubscribe();
-subject.next('!');
-
-
-
+// -- TEST --
+performanceSubject.next(person);
+batchSubject.next(Personen);
 
 
 
@@ -74,7 +84,6 @@ setTimeout(() => {
 }, 1000);
 
 console.log("End");
-
 
 
 
