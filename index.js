@@ -23,20 +23,14 @@ Salesman.prototype.calculateBonus = function() {
     }
     return bonuses.reduce((a, b) => a + b);
 }
+// Example
 const social = new SocialPerformance([4,4], [4,3], [4,4], [4,4], [5,5], [4,4]);
 const person = new Salesman('John', social);
 
 console.log(person.calculateBonus());
 
-const Personen = [];
-for (let i = 0; i < 1000; i++) {
-    const rand = Math.floor(Math.random() * 10);
-    const rand2 =Math.floor(Math.random() * 10);
-    const rand3 =Math.floor(Math.random() * 10);
-    const social = new SocialPerformance([rand, rand], [rand, 10-rand], [rand2, rand2], [rand2, 10-rand2],[rand3, rand3], [10-rand3, rand3]);
-    const person = new Salesman('Person ' + i, social);
-    Personen.push(person);
-}
+
+
 
 
 
@@ -64,6 +58,17 @@ batchSubject.subscribe(personenListe => {
 
 // -- TEST --
 performanceSubject.next(person);
+
+const Personen = [];
+for (let i = 0; i < 1000; i++) {
+    const rand = Math.floor(Math.random() * 10);
+    const rand2 =Math.floor(Math.random() * 10);
+    const rand3 =Math.floor(Math.random() * 10);
+    const social = new SocialPerformance([rand, rand], [rand, 10-rand], [rand2, rand2], [rand2, 10-rand2],[rand3, rand3], [10-rand3, rand3]);
+    const person = new Salesman('Person ' + i, social);
+    Personen.push(person);
+}
+
 batchSubject.next(Personen);
 
 

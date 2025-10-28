@@ -1,3 +1,4 @@
+// ./worker.js
 const { parentPort} = require('worker_threads');
 
 parentPort.on("message", (msg) => {
@@ -5,4 +6,3 @@ parentPort.on("message", (msg) => {
     for (let i = 0; i < msg; i++) sum += i;
     parentPort.postMessage(`${msg} done`);
 })
-
