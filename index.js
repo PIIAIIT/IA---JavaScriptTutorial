@@ -42,34 +42,23 @@ console.log(person.calculateBonus());
 const { Subject } = require('rxjs');
 
 const performanceSubject = new Subject();
-const batchSubject = new Subject();
 
 performanceSubject.subscribe(salesman => {
     const bonus = salesman.calculateBonus();
     console.log(`${salesman.name} has a bonus of ${bonus.toFixed(2)}`);
 });
 
-batchSubject.subscribe(personenListe => {
-    personenListe.forEach(p => {
-        const bonus = p.calculateBonus();
-        console.log(`${p.name} has a bonus of ${bonus.toFixed(2)}`);
-    });
-});
-
 // -- TEST --
 performanceSubject.next(person);
 
-const Personen = [];
 for (let i = 0; i < 1000; i++) {
     const rand = Math.floor(Math.random() * 10);
     const rand2 =Math.floor(Math.random() * 10);
     const rand3 =Math.floor(Math.random() * 10);
     const social = new SocialPerformance([rand, rand], [rand, 10-rand], [rand2, rand2], [rand2, 10-rand2],[rand3, rand3], [10-rand3, rand3]);
     const person = new Salesman('Person ' + i, social);
-    Personen.push(person);
+    performanceSubject.next(person);
 }
-
-batchSubject.next(Personen);
 
 
 
